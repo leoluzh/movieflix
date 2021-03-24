@@ -49,5 +49,11 @@ public class Movie implements Serializable {
     @Column
     private Long views;
 
+    @Column
+    private Long likes;
+
+    @Column
+    private Long dislike;
+
 
 }
