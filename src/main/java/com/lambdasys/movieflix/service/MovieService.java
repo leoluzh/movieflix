@@ -66,7 +66,7 @@ public class MovieService {
 
     public MovieDTO dislike( Long id ) throws MovieNotFoundException {
         Movie movieToIncrementDislikes = verifyIfExists( id );
-        movieToIncrementDislikes.setDislike( movieToIncrementDislikes.getDislike() + 1 );
+        movieToIncrementDislikes.setDislikes( movieToIncrementDislikes.getDislikes() + 1 );
         movieRepository.save( movieToIncrementDislikes );
         return movieMapper.toDTO( movieToIncrementDislikes );
     }

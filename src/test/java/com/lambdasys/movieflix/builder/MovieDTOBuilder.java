@@ -38,7 +38,7 @@ public class MovieDTOBuilder {
     private Long likes = 1_000_000L;
 
     @Builder.Default
-    private Long dislike = 100_000L;
+    private Long dislikes = 100_000L;
 
     public Movie toMovie(){
         return Movie
@@ -50,7 +50,7 @@ public class MovieDTOBuilder {
                 .genre( genre )
                 .views( views )
                 .likes( likes )
-                .dislike( dislike )
+                .dislikes( dislikes )
                 .build();
     }
 
