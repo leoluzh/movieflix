@@ -4,6 +4,7 @@ import com.lambdasys.movieflix.builder.MovieDTOBuilder;
 import com.lambdasys.movieflix.dto.MovieDTO;
 import com.lambdasys.movieflix.entity.Movie;
 import com.lambdasys.movieflix.exceptions.MovieAlreadyRegisteredException;
+import com.lambdasys.movieflix.exceptions.MovieNotFoundException;
 import com.lambdasys.movieflix.mapper.MovieMapper;
 import com.lambdasys.movieflix.repository.MovieRepository;
 
@@ -94,6 +95,24 @@ public class MovieServiceTest {
 
         // then
         assertThrows( MovieAlreadyRegisteredException.class , () -> movieService.createMovie(expectedMovieDTO) );
+
+    }
+
+    @DisplayName("When a valid movie name is given the return an movie")
+    @Test
+    public void whenValidMovieNameIsGivenThenReturnAnMovie() throws MovieNotFoundException {
+
+        // given
+        MovieDTO expectedFoundMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+        Movie expectedFoundMovie = movieMapper.toModel( expectedFoundMovieDTO );
+
+        // when
+        when(movieRepository.findByName(expectedFoundMovie.getName())).thenReturn(Optional.of(expectedFoundMovie));
+
+        // then
+        MovieDTO foundMovieDTO = movieService.findByName(expectedFoundMovieDTO.getName());
+
+        assertThat(foundMovieDTO,is(equalTo(expectedFoundMovieDTO)));
 
     }
 

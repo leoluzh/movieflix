@@ -30,6 +30,12 @@ public class MovieService {
         return movieMapper.toDTO( savedMovie );
     }
 
+    public MovieDTO findByName( String name ) throws MovieNotFoundException {
+        Movie foundMovie = movieRepository.findByName( name )
+                .orElseThrow( () -> new MovieNotFoundException( name ));
+        return movieMapper.toDTO( foundMovie );
+    }
+
     public Movie verifyIfExists( Long id ) throws MovieNotFoundException {
         return movieRepository.findById( id )
                 .orElseThrow( () -> new MovieNotFoundException( id ) );
