@@ -50,7 +50,7 @@ public class Movie implements Serializable {
     private Long likes;
 
     @Column(nullable = false)
-    private Long dislike;
+    private Long dislikes;
 
 
 }

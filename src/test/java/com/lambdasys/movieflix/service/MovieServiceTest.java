@@ -244,9 +244,9 @@ public class MovieServiceTest {
         Long expectedLikesAfterIncrement = expectedMovieDTO.getLikes() + 1 ;
 
         // then
-        MovieDTO viewsMoviesDTO = movieService.like(expectedMovieDTO.getId());
+        MovieDTO likedMovieDTO = movieService.like(expectedMovieDTO.getId());
 
-        assertThat(expectedLikesAfterIncrement,equalTo(viewsMoviesDTO.getLikes()));
+        assertThat(expectedLikesAfterIncrement,equalTo(likedMovieDTO.getLikes()));
 
 
     }
@@ -267,9 +267,9 @@ public class MovieServiceTest {
         Long expectedDislikesAfterIncrement = expectedMovieDTO.getDislikes() + 1 ;
 
         // then
-        MovieDTO viewsMoviesDTO = movieService.dislike(expectedMovieDTO.getId());
+        MovieDTO dislikedMoviesDTO = movieService.dislike(expectedMovieDTO.getId());
 
-        assertThat(expectedDislikesAfterIncrement,equalTo(viewsMoviesDTO.getDislikes()));
+        assertThat(expectedDislikesAfterIncrement,equalTo(dislikedMoviesDTO.getDislikes()));
 
     }
 
