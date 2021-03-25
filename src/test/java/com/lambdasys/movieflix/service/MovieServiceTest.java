@@ -152,4 +152,19 @@ public class MovieServiceTest {
 
     }
 
+    @DisplayName("When list movie is called then return an empty list of movies")
+    @Test
+    public void whenListMovieIsCalledThenReturnAnEmptyListOfMovies(){
+
+        // when
+        when(movieRepository.findAll()).thenReturn(Collections.emptyList());
+
+        // then
+        List<MovieDTO> foundListMoviesDTO = movieService.listAll();
+
+        assertThat(foundListMoviesDTO,is(empty()));
+
+    }
+
+
 }
