@@ -1,12 +1,10 @@
 package com.lambdasys.movieflix.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.lambdasys.movieflix.enums.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -14,7 +12,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.OffsetDateTime;
 
 @Entity
 @Data
@@ -29,11 +26,11 @@ public class Movie implements Serializable {
     @Id
     private Long id;
 
-    @NotBlank @Size(min =1 ,max = 255)
+    @NotBlank @Size(min = 1 ,max = 255)
     @Column(unique = true, nullable = false)
     private String name;
 
-    @NotBlank @Size(min=10,max=1000)
+    @NotBlank @Size(min = 10,max = 1000)
     @Column(nullable = false)
     private String description;
 
@@ -46,13 +43,13 @@ public class Movie implements Serializable {
     @Column(nullable = false)
     private Genre genre;
 
-    @Column
+    @Column(nullable = false)
     private Long views;
 
-    @Column
+    @Column(nullable = false)
     private Long likes;
 
-    @Column
+    @Column(nullable = false)
     private Long dislike;
 
 

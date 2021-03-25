@@ -209,21 +209,67 @@ public class MovieServiceTest {
     @Order(9)
     @DisplayName("When viewed is called then increment the number of views")
     @Test
-    public void whenViewsIsCalledThenIncrementNumberOfViews(){
+    public void whenViewsIsCalledThenIncrementNumberOfViews() throws MovieNotFoundException {
+
+        // given
+        MovieDTO expectedMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+        Movie expectedMovie = movieMapper.toModel( expectedMovieDTO );
+
+        // when
+        when(movieRepository.findById(expectedMovieDTO.getId())).thenReturn(Optional.of(expectedMovie));
+        when(movieRepository.save(expectedMovie)).thenReturn(expectedMovie);
+
+        Long expectedViewsAfterIncrement = expectedMovieDTO.getViews() + 1 ;
+
+        // then
+        MovieDTO viewsMoviesDTO = movieService.views(expectedMovieDTO.getId());
+
+        assertThat(expectedViewsAfterIncrement,equalTo(viewsMoviesDTO.getViews()));
 
     }
 
     @Order(10)
-    @DisplayName("When liked is called then increment the number of views")
+    @DisplayName("When liked is called then increment the number of likes")
     @Test
-    public void whenLikeIsCalledThenIncrementNumberOfViews(){
+    public void whenLikeIsCalledThenIncrementNumberOfLikes() throws MovieNotFoundException {
+
+        // given
+        MovieDTO expectedMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+        Movie expectedMovie = movieMapper.toModel( expectedMovieDTO );
+
+        // when
+        when(movieRepository.findById(expectedMovieDTO.getId())).thenReturn(Optional.of(expectedMovie));
+        when(movieRepository.save(expectedMovie)).thenReturn(expectedMovie);
+
+        Long expectedLikesAfterIncrement = expectedMovieDTO.getLikes() + 1 ;
+
+        // then
+        MovieDTO viewsMoviesDTO = movieService.like(expectedMovieDTO.getId());
+
+        assertThat(expectedLikesAfterIncrement,equalTo(viewsMoviesDTO.getLikes()));
+
 
     }
 
     @Order(11)
-    @DisplayName("When disliked is called then increment the number of views")
+    @DisplayName("When disliked is called then increment the number of dislikes")
     @Test
-    public void whenDislikeIsCalledThenIncrementNumberOfViews(){
+    public void whenDislikeIsCalledThenIncrementNumberOfLikes() throws MovieNotFoundException {
+
+        // given
+        MovieDTO expectedMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+        Movie expectedMovie = movieMapper.toModel( expectedMovieDTO );
+
+        // when
+        when(movieRepository.findById(expectedMovieDTO.getId())).thenReturn(Optional.of(expectedMovie));
+        when(movieRepository.save(expectedMovie)).thenReturn(expectedMovie);
+
+        Long expectedDislikesAfterIncrement = expectedMovieDTO.getDislikes() + 1 ;
+
+        // then
+        MovieDTO viewsMoviesDTO = movieService.dislike(expectedMovieDTO.getId());
+
+        assertThat(expectedDislikesAfterIncrement,equalTo(viewsMoviesDTO.getDislikes()));
 
     }
 

@@ -10,10 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -27,7 +24,7 @@ public class MovieDTO implements Serializable {
 
     private Long id;
 
-    @NotBlank @Size(min =1 ,max = 255)
+    @NotBlank @Size(min=1,max=255)
     private String name;
 
     @NotBlank @Size(min=10,max=1000)
@@ -38,5 +35,14 @@ public class MovieDTO implements Serializable {
 
     @NotNull
     private Genre genre;
+
+    @NotNull @Min(0) @Max(999_999_999_999L)
+    private Long views;
+
+    @NotNull @Min(0) @Max(999_999_999_999L)
+    private Long likes;
+
+    @NotNull @Min(0) @Max(999_999_999_999L)
+    private Long dislikes;
 
 }
