@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class MovieNotFoundException extends  Exception {
 
     public MovieNotFoundException( String name ){
-        super(String.format("Movie with name % not found in the system.",name));
+        super(String.format("Movie with name %s not found in the system.",name));
     }
 
     public MovieNotFoundException( Long id ){
-        super(String.format("Movie with id % not found in the system.",id));
+        super(String.format("Movie with id %s not found in the system.",id));
     }
 
 }

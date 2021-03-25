@@ -10,10 +10,7 @@ import com.lambdasys.movieflix.repository.MovieRepository;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -63,6 +60,7 @@ public class MovieServiceTest {
 
     }
 
+    @Order(1)
     @DisplayName("When movie is informed then it should be created")
     @Test
     public void whenMovieIsInformedThenItShouldBeCreated() throws MovieAlreadyRegisteredException {
@@ -84,6 +82,7 @@ public class MovieServiceTest {
 
     }
 
+    @Order(2)
     @DisplayName("When an already registered movie is informed then an exception should be thrown")
     @Test
     public void whenAlreadyRegisteredMovieIsInformedThenAnExceptionShouldBeThrow(){
@@ -100,6 +99,7 @@ public class MovieServiceTest {
 
     }
 
+    @Order(3)
     @DisplayName("When a valid movie name is given the return an movie")
     @Test
     public void whenValidMovieNameIsGivenThenReturnAnMovie() throws MovieNotFoundException {
@@ -118,6 +118,7 @@ public class MovieServiceTest {
 
     }
 
+    @Order(4)
     @DisplayName("When not registered movie name is given then throw an exception")
     @Test
     public void whenNotRegisteredMovieNameIsGivenThenThrowAnException(){
@@ -133,6 +134,7 @@ public class MovieServiceTest {
 
     }
 
+    @Order(5)
     @DisplayName("When list movie is called then return a list of movies")
     @Test
     public void whenListMovieIsCalledThenReturnAListOfMovies(){
@@ -152,6 +154,7 @@ public class MovieServiceTest {
 
     }
 
+    @Order(6)
     @DisplayName("When list movie is called then return an empty list of movies")
     @Test
     public void whenListMovieIsCalledThenReturnAnEmptyListOfMovies(){
@@ -163,6 +166,43 @@ public class MovieServiceTest {
         List<MovieDTO> foundListMoviesDTO = movieService.listAll();
 
         assertThat(foundListMoviesDTO,is(empty()));
+
+    }
+
+    @Order(7)
+    @DisplayName("When delete is called with a valid id then a movie should be deleted")
+    @Test
+    public void whenDeleteIsCalledWithValidIdThenMovieShouldBeDeleted() throws MovieNotFoundException {
+
+        // given
+        MovieDTO expectedDeletedMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+        Movie expectedDeleteMovie = movieMapper.toModel( expectedDeletedMovieDTO );
+
+        // when
+        when(movieRepository.findById(expectedDeletedMovieDTO.getId())).thenReturn(Optional.of(expectedDeleteMovie));
+
+        // then
+        movieService.deleteById(expectedDeletedMovieDTO.getId());
+
+        //how to check a void/one way function - use times to check if pass
+        verify(movieRepository,times(1)).findById(expectedDeletedMovieDTO.getId());
+        verify(movieRepository,times(1)).deleteById(expectedDeletedMovieDTO.getId());
+
+    }
+
+    @Order(8)
+    @DisplayName("When delete is called with a invalid id then an exception should be throw")
+    @Test
+    public void whenDeleteIsCalledWithInvalidIdThenExceptionShouldThrow() throws MovieNotFoundException {
+
+        // given
+        MovieDTO expectedDeletedMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+
+        // when
+        when(movieRepository.findById(expectedDeletedMovieDTO.getId())).thenReturn(Optional.empty());
+
+        // then
+        assertThrows(MovieNotFoundException.class, () -> movieService.deleteById(expectedDeletedMovieDTO.getId()));
 
     }
 

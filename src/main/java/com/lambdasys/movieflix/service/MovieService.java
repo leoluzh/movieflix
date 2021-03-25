@@ -45,6 +45,11 @@ public class MovieService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteById( Long id ) throws MovieNotFoundException {
+        verifyIfExists( id );
+        movieRepository.deleteById( id );
+    }
+
     public Movie verifyIfExists( Long id ) throws MovieNotFoundException {
         return movieRepository.findById( id )
                 .orElseThrow( () -> new MovieNotFoundException( id ) );
