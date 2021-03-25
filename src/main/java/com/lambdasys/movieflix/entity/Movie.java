@@ -44,13 +44,12 @@ public class Movie implements Serializable {
     private Genre genre;
 
     @Column(nullable = false)
-    private Long views;
+    private Long views = 0L;
 
     @Column(nullable = false)
-    private Long likes;
+    private Long likes = 0L;
 
     @Column(nullable = false)
-    private Long dislikes;
-
+    private Long dislikes = 0L;
 
 }
