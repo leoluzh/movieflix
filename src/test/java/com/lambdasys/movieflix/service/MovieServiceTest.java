@@ -20,6 +20,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -128,6 +130,25 @@ public class MovieServiceTest {
 
         // then
         assertThrows(MovieNotFoundException.class, () -> movieService.findByName(expectedFoundMovieDTO.getName()));
+
+    }
+
+    @DisplayName("When list movie is called then return a list of movies")
+    @Test
+    public void whenListMovieIsCalledThenReturnAListOfMovies(){
+
+        // given -
+        MovieDTO expectedFoundMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+        Movie expectedFoundMovie = movieMapper.toModel( expectedFoundMovieDTO );
+
+        // when
+        when(movieRepository.findAll()).thenReturn(Collections.singletonList(expectedFoundMovie));
+
+        // then
+        List<MovieDTO> foundListMoviesDTO = movieService.listAll();
+
+        assertThat(foundListMoviesDTO, is(not(empty())));
+        assertThat(foundListMoviesDTO.get(0), is(equalTo(expectedFoundMovieDTO)));
 
     }
 
