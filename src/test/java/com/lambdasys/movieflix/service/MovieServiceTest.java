@@ -116,4 +116,19 @@ public class MovieServiceTest {
 
     }
 
+    @DisplayName("When not registered movie name is given then throw an exception")
+    @Test
+    public void whenNotRegisteredMovieNameIsGivenThenThrowAnException(){
+
+        // given
+        MovieDTO expectedFoundMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+
+        // when
+        when(movieRepository.findByName(expectedFoundMovieDTO.getName())).thenReturn(Optional.empty());
+
+        // then
+        assertThrows(MovieNotFoundException.class, () -> movieService.findByName(expectedFoundMovieDTO.getName()));
+
+    }
+
 }
