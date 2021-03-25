@@ -50,6 +50,27 @@ public class MovieService {
         movieRepository.deleteById( id );
     }
 
+    public MovieDTO views( Long id ) throws MovieNotFoundException {
+        Movie movieToIncrementViews = verifyIfExists( id );
+        movieToIncrementViews.setViews( movieToIncrementViews.getViews() + 1 );
+        movieRepository.save( movieToIncrementViews );
+        return movieMapper.toDTO( movieToIncrementViews );
+    }
+
+    public MovieDTO like( Long id ) throws MovieNotFoundException {
+        Movie movieToIncrementLikes = verifyIfExists( id );
+        movieToIncrementLikes.setLikes( movieToIncrementLikes.getLikes() + 1 );
+        movieRepository.save( movieToIncrementLikes );
+        return movieMapper.toDTO( movieToIncrementLikes );
+    }
+
+    public MovieDTO dislike( Long id ) throws MovieNotFoundException {
+        Movie movieToIncrementDislikes = verifyIfExists( id );
+        movieToIncrementDislikes.setDislike( movieToIncrementDislikes.getDislike() + 1 );
+        movieRepository.save( movieToIncrementDislikes );
+        return movieMapper.toDTO( movieToIncrementDislikes );
+    }
+
     public Movie verifyIfExists( Long id ) throws MovieNotFoundException {
         return movieRepository.findById( id )
                 .orElseThrow( () -> new MovieNotFoundException( id ) );
