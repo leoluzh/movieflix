@@ -36,32 +36,38 @@ public class MovieController implements MovieControllerDocs {
     @GetMapping("/{name}")
     @Override
     public MovieDTO findByName(String name) throws MovieNotFoundException {
-        throw new UnsupportedOperationException("Find by name not implemenent yet.");
+        return movieService.findByName(name);
     }
 
     @GetMapping
     @Override
     public List<MovieDTO> listMovies() {
-        throw new UnsupportedOperationException("List movies not implemenent yet.");
+        return movieService.listAll();
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Override
     public void deleteById(@PathVariable Long id) throws MovieNotFoundException {
-        throw new UnsupportedOperationException("Delete by id not implemenent yet.");
+        movieService.deleteById( id );
+    }
+
+    @GetMapping("/{id}/views")
+    @Override
+    public MovieDTO views( @PathVariable Long id) {
+        throw new UnsupportedOperationException("View by id not implemenent yet.");
     }
 
     @GetMapping("/{id}/like")
     @Override
-    public void like( @PathVariable Long id) {
-        throw new UnsupportedOperationException("Delete by id not implemenent yet.");
+    public MovieDTO like( @PathVariable Long id) {
+        throw new UnsupportedOperationException("Like by id not implemenent yet.");
     }
 
     @GetMapping("/{id}/dislike")
     @Override
-    public void dislike( @PathVariable Long id) {
-        throw new UnsupportedOperationException("Delete by id not implemenent yet.");
+    public MovieDTO dislike( @PathVariable Long id) {
+        throw new UnsupportedOperationException("Dislike by id not implemenent yet.");
     }
 
 }

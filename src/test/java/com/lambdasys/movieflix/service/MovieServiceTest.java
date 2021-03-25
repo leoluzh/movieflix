@@ -206,5 +206,26 @@ public class MovieServiceTest {
 
     }
 
+    @Order(9)
+    @DisplayName("When viewed is called then increment the number of views")
+    @Test
+    public void whenViewsIsCalledThenIncrementNumberOfViews(){
+
+    }
+
+    @Order(10)
+    @DisplayName("When liked is called then increment the number of views")
+    @Test
+    public void whenLikeIsCalledThenIncrementNumberOfViews(){
+
+    }
+
+    @Order(11)
+    @DisplayName("When disliked is called then increment the number of views")
+    @Test
+    public void whenDislikeIsCalledThenIncrementNumberOfViews(){
+
+    }
+
 
 }

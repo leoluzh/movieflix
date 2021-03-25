@@ -42,17 +42,23 @@ public interface MovieControllerDocs {
     })
     void deleteById( @PathVariable Long id ) throws MovieNotFoundException;
 
+    @Operation(description = "Increment movie views by a given id")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Success liked movie in the system."),
+    })
+    MovieDTO views( @PathVariable Long id );
+
+
     @Operation(description = "Like movie by a given id")
     @ApiResponses(value={
             @ApiResponse(responseCode = "200", description = "Success liked movie in the system."),
     })
-    void like( @PathVariable Long id );
+    MovieDTO like( @PathVariable Long id );
 
     @Operation(description = "Dislike movie by a given id")
     @ApiResponses(value={
             @ApiResponse(responseCode = "200", description = "Success disliked movie in the system."),
     })
-    void dislike( @PathVariable Long id );
-
+    MovieDTO dislike( @PathVariable Long id );
 
 }
