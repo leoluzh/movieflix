@@ -4,9 +4,14 @@ import com.lambdasys.movieflix.enums.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,12 +23,12 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SuppressWarnings("serial")
+@SuppressWarnings(value="serial")
 public class Movie implements Serializable {
 
     public static final int YEAR_OF_FIRST_FILM_THE_WORLD = 1888;
 
-    @Id
+    @Id @EqualsAndHashCode.Include
     private Long id;
 
     @NotBlank @Size(min = 1 ,max = 255)
@@ -39,7 +44,7 @@ public class Movie implements Serializable {
     @Column(nullable = false)
     private Integer year;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Genre genre;
 
@@ -51,5 +56,11 @@ public class Movie implements Serializable {
 
     @Column(nullable = false)
     private Long dislikes = 0L;
+
+    @Column(nullable = false)
+    private Integer max = 0;
+
+    @Column(nullable = false)
+    private Integer score = 0;
 
 }
