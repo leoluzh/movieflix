@@ -4,10 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class MovieScoreExceedException extends Exception {
+public class MovieScoreExceededException extends Exception {
 
-    public MovieScoreExceedException(Long id , Integer quantityToIncrement){
-        super(String.format("Movie with id %s to increment informed exceeds the max score: %s",id,quantityToIncrement));
+    public MovieScoreExceededException(final Long id , final Integer quantityToIncrement) {
+        super(String.format("Movie with id %s to increment informed exceeds the max score: %s", id, quantityToIncrement));
     }
 
 }
