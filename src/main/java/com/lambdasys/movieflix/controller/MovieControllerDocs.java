@@ -1,9 +1,10 @@
 package com.lambdasys.movieflix.controller;
 
-
 import com.lambdasys.movieflix.dto.MovieDTO;
+import com.lambdasys.movieflix.dto.ScoreQuantityDTO;
 import com.lambdasys.movieflix.exceptions.MovieAlreadyRegisteredException;
 import com.lambdasys.movieflix.exceptions.MovieNotFoundException;
+import com.lambdasys.movieflix.exceptions.MovieScoreExceededException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,14 +21,14 @@ public interface MovieControllerDocs {
         @ApiResponse(responseCode = "201", description = "Success movie creation."),
         @ApiResponse(responseCode = "400", description = "Missing required fields or wrong field range value.")
     })
-    MovieDTO createMovie( MovieDTO movieDTO ) throws MovieAlreadyRegisteredException;
+    MovieDTO createMovie(MovieDTO movieDTO) throws MovieAlreadyRegisteredException;
 
     @Operation(description = "Returns movie found by a given name")
     @ApiResponses(value={
         @ApiResponse(responseCode = "200", description = "Success movie found in the system."),
         @ApiResponse(responseCode = "404", description = "Movie with given name not found.")
     })
-    MovieDTO findByName(@PathVariable String name ) throws MovieNotFoundException;
+    MovieDTO findByName(@PathVariable String name) throws MovieNotFoundException;
 
     @Operation(description = "Return a list of all movies registered in the system.")
     @ApiResponses(value={
@@ -46,19 +47,35 @@ public interface MovieControllerDocs {
     @ApiResponses(value={
             @ApiResponse(responseCode = "200", description = "Success liked movie in the system."),
     })
-    MovieDTO views( @PathVariable Long id );
+    MovieDTO views(@PathVariable Long id) throws MovieNotFoundException;
 
 
     @Operation(description = "Like an movie by a given id")
     @ApiResponses(value={
             @ApiResponse(responseCode = "200", description = "Success liked movie in the system."),
     })
-    MovieDTO like( @PathVariable Long id );
+    MovieDTO like(@PathVariable Long id) throws MovieNotFoundException;
 
     @Operation(description = "Dislike an movie by a given id")
     @ApiResponses(value={
             @ApiResponse(responseCode = "200", description = "Success disliked movie in the system."),
     })
-    MovieDTO dislike( @PathVariable Long id );
+    MovieDTO dislike(@PathVariable Long id) throws MovieNotFoundException;
+
+    @Operation(description = "Increment movie's score by a given id")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Success movie's score incremented"),
+            @ApiResponse(responseCode = "400", description = "Movie's score not successfully increment"),
+            @ApiResponse(responseCode = "404", description = "Movie with given id not found.")
+    })
+    MovieDTO increment(Long id, ScoreQuantityDTO scoreQuantityDTO) throws MovieNotFoundException, MovieScoreExceededException;
+
+    @Operation(description = "Decrement movie's score by a given id")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Success movie's score incremented"),
+            @ApiResponse(responseCode = "400", description = "Movie's score not successfully increment"),
+            @ApiResponse(responseCode = "404", description = "Movie with given id not found.")
+    })
+    MovieDTO decrement(Long id, ScoreQuantityDTO scoreQuantityDTO) throws MovieNotFoundException, MovieScoreExceededException;
 
 }
