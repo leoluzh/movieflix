@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_GATEWAY)
 public class MovieAlreadyRegisteredException extends Exception {
 
-    public MovieAlreadyRegisteredException( String name ){
-        super(String.format("Movie with name %s already registered in the system.",name));
+    public MovieAlreadyRegisteredException(final String name) {
+        super(String.format("Movie with name %s already registered in the system.", name));
     }
 
 }
