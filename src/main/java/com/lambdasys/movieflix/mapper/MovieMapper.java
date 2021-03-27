@@ -10,7 +10,7 @@ public interface MovieMapper {
 
     MovieMapper INSTANCE = Mappers.getMapper(MovieMapper.class);
 
-    Movie toModel(MovieDTO movieDTO );
+    Movie toModel(MovieDTO movieDTO);
 
     MovieDTO toDTO(Movie movie);
 
