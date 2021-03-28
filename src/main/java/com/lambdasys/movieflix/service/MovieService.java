@@ -26,6 +26,7 @@ public class MovieService {
     }
 
     public MovieDTO createMovie(final MovieDTO movieDTO) throws MovieAlreadyRegisteredException {
+        verifyIfIsAlreadyRegistered(movieDTO.getId());
         verifyIfIsAlreadyRegistered(movieDTO.getName());
         final Movie movie = movieMapper.toModel(movieDTO);
         final Movie savedMovie = movieRepository.save(movie);
@@ -82,6 +83,14 @@ public class MovieService {
             throw new MovieAlreadyRegisteredException(name);
         }
     }
+
+    public void verifyIfIsAlreadyRegistered(final Long id) throws MovieAlreadyRegisteredException {
+        final Optional<Movie> savedMovie = movieRepository.findById(id);
+        if (savedMovie.isPresent()) {
+            throw new MovieAlreadyRegisteredException(id);
+        }
+    }
+
 
     public MovieDTO increment(final Long id, final Integer quantityToIncrement) throws MovieNotFoundException, MovieScoreExceededException {
         final Movie movieToIncrementScore = verifyIfExists(id);
