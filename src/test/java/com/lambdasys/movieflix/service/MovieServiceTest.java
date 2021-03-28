@@ -2,9 +2,11 @@ package com.lambdasys.movieflix.service;
 
 import com.lambdasys.movieflix.builder.MovieDTOBuilder;
 import com.lambdasys.movieflix.dto.MovieDTO;
+import com.lambdasys.movieflix.dto.ScoreQuantityDTO;
 import com.lambdasys.movieflix.entity.Movie;
 import com.lambdasys.movieflix.exceptions.MovieAlreadyRegisteredException;
 import com.lambdasys.movieflix.exceptions.MovieNotFoundException;
+import com.lambdasys.movieflix.exceptions.MovieScoreExceededException;
 import com.lambdasys.movieflix.mapper.MovieMapper;
 import com.lambdasys.movieflix.repository.MovieRepository;
 
@@ -273,5 +275,93 @@ public class MovieServiceTest {
 
     }
 
+    @Order(12)
+    @DisplayName("When increment score is called then increment the number of scores")
+    @Test
+    public void whenIncrementScoreIsCalledThenIncrementNumberOfScores() throws MovieNotFoundException, MovieScoreExceededException {
+
+        // given
+        MovieDTO expectedMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+        Movie expectedMovie = movieMapper.toModel( expectedMovieDTO );
+        ScoreQuantityDTO quantityDTO = ScoreQuantityDTO.builder().quantity(10).build();
+
+        // when
+        when(movieRepository.findById(expectedMovieDTO.getId())).thenReturn(Optional.of(expectedMovie));
+        when(movieRepository.save(expectedMovie)).thenReturn(expectedMovie);
+
+        Integer expectedScoreAfterIncrement = expectedMovieDTO.getScore() + quantityDTO.getQuantity();
+
+        // then
+        MovieDTO incrementedMoviesDTO = movieService.increment(expectedMovieDTO.getId(),quantityDTO.getQuantity());
+
+        assertThat(expectedScoreAfterIncrement,equalTo(incrementedMoviesDTO.getScore()));
+
+    }
+
+    @Order(13)
+    @DisplayName("When increment score with an exceeded quantity is called then throw an exception")
+    @Test
+    public void whenIncrementScoreWithAnExceededIsCalledThenIncrementNumberOfScores() throws MovieNotFoundException {
+
+        // given
+        MovieDTO expectedMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+        Movie expectedMovie = movieMapper.toModel( expectedMovieDTO );
+        ScoreQuantityDTO quantityDTO = ScoreQuantityDTO.builder().quantity(expectedMovieDTO.getMax()+1).build();
+
+        // when
+        when(movieRepository.findById(expectedMovieDTO.getId())).thenReturn(Optional.of(expectedMovie));
+        //when(movieRepository.save(expectedMovie)).thenReturn(expectedMovie);
+
+        Integer expectedScoreAfterIncrement = expectedMovieDTO.getScore()  + quantityDTO.getQuantity();
+
+        // then
+        assertThrows(MovieScoreExceededException.class, () -> movieService.increment(expectedMovieDTO.getId(),quantityDTO.getQuantity()));
+
+    }
+
+    @Order(14)
+    @DisplayName("When decrement score is called then decrement the number of scores")
+    @Test
+    public void whenDecrementScoreIsCalledThenDecrementNumberOfScores() throws MovieNotFoundException, MovieScoreExceededException {
+
+        // given
+        MovieDTO expectedMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+        Movie expectedMovie = movieMapper.toModel( expectedMovieDTO );
+        ScoreQuantityDTO quantityDTO = ScoreQuantityDTO.builder().quantity(2).build();
+
+        // when
+        when(movieRepository.findById(expectedMovieDTO.getId())).thenReturn(Optional.of(expectedMovie));
+        when(movieRepository.save(expectedMovie)).thenReturn(expectedMovie);
+
+        Integer expectedScoreAfterDecrement = expectedMovieDTO.getScore() - quantityDTO.getQuantity();
+
+        // then
+        MovieDTO decrementedMoviesDTO = movieService.decrement(expectedMovieDTO.getId(),quantityDTO.getQuantity());
+
+        assertThat(expectedScoreAfterDecrement,equalTo(decrementedMoviesDTO.getScore()));
+
+    }
+
+    @Order(15)
+    @DisplayName("When decrement score with an exceeded quantity is called then throw an exception")
+    @Test
+    public void whenDecrementScoreWithAnExceededIsCalledThenDecrementNumberOfScores() throws MovieNotFoundException {
+
+        // given
+        MovieDTO expectedMovieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
+        Movie expectedMovie = movieMapper.toModel( expectedMovieDTO );
+        ScoreQuantityDTO quantityDTO = ScoreQuantityDTO.builder().quantity(expectedMovieDTO.getScore()+1).build();
+
+        // when
+        when(movieRepository.findById(expectedMovieDTO.getId())).thenReturn(Optional.of(expectedMovie));
+        //when(movieRepository.save(expectedMovie)).thenReturn(expectedMovie);
+
+        // generate an negative number
+        Integer expectedScoreAfterDecrement = expectedMovieDTO.getScore() - quantityDTO.getQuantity();
+
+        // then
+        assertThrows(MovieScoreExceededException.class, () -> movieService.decrement(expectedMovieDTO.getId(),quantityDTO.getQuantity()));
+
+    }
 
 }
