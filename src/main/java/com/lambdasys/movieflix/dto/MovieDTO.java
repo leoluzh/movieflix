@@ -6,12 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.validation.constraints.*;
-import java.io.Serial;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Data
@@ -44,5 +43,11 @@ public class MovieDTO implements Serializable {
 
     @NotNull @Min(0) @Max(999_999_999_999L)
     private Long dislikes;
+
+    @NotNull @Min(0) @Max(1000)
+    private Integer max;
+
+    @NotNull @Min(0) @Max(1000)
+    private Integer score;
 
 }

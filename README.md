@@ -32,6 +32,18 @@ Após executar o comando acima, basta apenas abrir o seguinte endereço e visual
 http://localhost:8080/api/v1/movies
 ```
 
+Para visualizar a documentação das apis:
+
+```
+http://localhost:8080/api-docs
+```
+
+De forma gráfica via swagger-ui:
+
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
 Foram utilizadas as seguintes ferramentas para desenvolver o projeto:
 
 * Java 16 ou versões superiores.

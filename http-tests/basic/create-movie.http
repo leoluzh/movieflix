@@ -1,0 +1,16 @@
+# an example of creating of an movie
+POST http://localhost:8080/api/v1/movies
+Content-Type: application/json
+Content-Encoding: UTF-8
+
+{
+  "name": "Gonnies",
+  "description": "Gonnies description",
+  "year": 1987,
+  "genre": "ACTION",
+  "views": 100000000,
+  "likes": 1000000,
+  "dislikes": 100000,
+  "max": 100,
+  "score": 95
+}

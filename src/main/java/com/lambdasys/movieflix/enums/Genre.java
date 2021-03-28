@@ -3,11 +3,11 @@ package com.lambdasys.movieflix.enums;
 public enum Genre {
 
     ACTION("Action"),
-    ADVENTURE("Adventure") ,
+    ADVENTURE("Adventure"),
     COMEDY("Comedy"),
     CRIME("Crime"),
     DRAMA("Drama"),
-    EPICS("Epics") ,
+    EPICS("Epics"),
     FANTASY("Fantasy"),
     HISTORICAL("Historical"),
     HORROR("Horror"),
@@ -19,7 +19,7 @@ public enum Genre {
     WAR("War"),
     WESTERN("Western");
 
-    Genre( String description ){
+    Genre(String description) {
         this.description = description;
     }
 
