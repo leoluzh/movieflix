@@ -244,7 +244,7 @@ public class MovieControllerTest {
     public void whenPATCHIsCalledToIncrementScoreGreatherThanMaxThenBadRequestStatusIsReturned() throws Exception {
 
         // given
-        var quantityDTO = ScoreQuantityDTO.builder().quantity(1000).build();
+        var quantityDTO = ScoreQuantityDTO.builder().quantity(500).build();
         var movieDTO = MovieDTOBuilder.builder().build().toMovieDTO();
 
         // when
@@ -257,7 +257,7 @@ public class MovieControllerTest {
                 .characterEncoding(StandardCharsets.UTF_8.name())
                 .content(asJsonString(quantityDTO)))
                 .andDo(print())
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
 
     }
 
