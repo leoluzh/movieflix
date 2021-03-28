@@ -44,6 +44,13 @@ De forma gráfica via swagger-ui:
 http://localhost:8080/swagger-ui/index.html
 ```
 
+Para criar/executar seus scripts de testes com http client no intellij veja a documentação:
+
+```
+https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html
+```
+
+
 Foram utilizadas as seguintes ferramentas para desenvolver o projeto:
 
 * Java 16 ou versões superiores.
