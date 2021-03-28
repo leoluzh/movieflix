@@ -1,0 +1,8 @@
+# an example of increment movie score
+PATCH http://localhost:8080/api/v1/movies/1/increment
+Content-Encoding: UTF-8
+Content-Type: application/json
+
+{
+  "quantity": 4
+}
