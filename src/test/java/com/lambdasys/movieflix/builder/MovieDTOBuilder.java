@@ -40,17 +40,25 @@ public class MovieDTOBuilder {
     @Builder.Default
     private Long dislikes = 100_000L;
 
+    @Builder.Default
+    private Integer max = 100;
+
+    @Builder.Default
+    private Integer score = 10;
+
     public Movie toMovie(){
         return Movie
                 .builder()
-                .id( id )
-                .name( name )
-                .description( description )
-                .year( year )
-                .genre( genre )
-                .views( views )
-                .likes( likes )
-                .dislikes( dislikes )
+                .id(id)
+                .name(name)
+                .description(description)
+                .year(year)
+                .genre(genre)
+                .views(views)
+                .likes(likes)
+                .dislikes(dislikes)
+                .max(max)
+                .score(score)
                 .build();
     }
 

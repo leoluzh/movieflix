@@ -1,0 +1,61 @@
+# an example of creating of an movie
+POST http://{{host}}:{{port}}/api/v1/movies
+Content-Type: application/json
+Content-Encoding: UTF-8
+
+{
+  "id": {{key}},
+  "name": "Matrix",
+  "description": "Matrix description",
+  "year": 1987,
+  "genre": "ACTION",
+  "views": 100000000,
+  "likes": 1000000,
+  "dislikes": 100000,
+  "max": 100,
+  "score": 90
+}
+
+###
+# a basic request list
+GET http://{{host}}:{{port}}/api/v1/movies
+
+###
+# an example of like an movie
+GET http://{{host}}:{{port}}/api/v1/movies/{{key}}/like
+
+###
+# an example of dislke an movie
+GET http://{{host}}:{{port}}/api/v1/movies/{{key}}/dislike
+
+###
+# an example of view an movie
+GET http://{{host}}:{{port}}/api/v1/movies/{{key}}/view
+
+###
+# an example of increment movie score
+PATCH http://{{host}}:{{port}}/api/v1/movies/{{key}}/increment
+Content-Encoding: UTF-8
+Content-Type: application/json
+
+{
+  "quantity": 10
+}
+
+###
+# an example of decrement movie score
+PATCH http://{{host}}:{{port}}/api/v1/movies/{{key}}/decrement
+Content-Encoding: UTF-8
+Content-Type: application/json
+
+{
+  "quantity": 10
+}
+
+###
+#a basic request - list movies
+GET http://{{host}}:{{port}}/api/v1/movies
+
+###
+# an example of deleting an movie
+DELETE http://{{host}}:{{port}}/api/v1/movies/{{key}}

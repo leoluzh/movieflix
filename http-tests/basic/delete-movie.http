@@ -1,0 +1,2 @@
+# an example of deleting an movie
+DELETE http://localhost:8080/api/v1/movies/1
